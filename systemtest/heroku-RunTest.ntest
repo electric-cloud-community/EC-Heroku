@@ -1,0 +1,565 @@
+# -*-Perl-*-
+
+# heroku-RunTest.ntest -
+#
+# ECWebAccess
+#
+# Copyright (c) 2005-2012 Electric Cloud, Inc.
+# All rights reserved
+
+use strict;
+use ECTest;
+use ECSelenium;
+
+ 
+# system tests
+
+
+require "$::gTestFileDir/../../EC-Heroku/systemtest/heroku-common.ntest";
+
+
+use constant {
+    CONFIG      => "Heroku",
+};
+
+$::grunHerokuCreated = 0;
+$::gProjectImported = 0;
+
+#stores the result wheter the result of the procedure is success or error
+my $outcome = "";
+
+sub importProject() {
+    assertOK($::N->import(
+                     { file =>"$::gTestFileDir/import.xml",
+               path  => "/projects/heroku-test",
+               force => 1
+             } ), "import runHerokuCommandLine");
+   
+assertOK($::N->getProcedure("heroku-test", "AddOnsM"),"AddOnsM procedure exists");
+assertOK($::N->getProcedure("heroku-test", "ApplicationM"),"ApplicationM procedure exists");
+assertOK($::N->getProcedure("heroku-test", "CollaboratorM"),"CollaboratorM procedure exists");
+assertOK($::N->getProcedure("heroku-test", "ConfigurationM"),"ConfigurationM procedure exists");
+assertOK($::N->getProcedure("heroku-test", "DeployApp"),"DeployApp procedure exists");
+assertOK($::N->getProcedure("heroku-test", "ProcessM"),"ProcessM procedure exists");
+assertOK($::N->getProcedure("heroku-test", "ReleasesM"),"ReleasesM procedure exists");
+assertOK($::N->getProcedure("heroku-test", "SSHKeysM"),"SSHKeysM procedure exists");
+
+$::gProjectImported = 1;
+}
+
+sub doSetup() {
+
+    if(! $::gProjectImported) {
+        importProject();
+    }
+
+}
+
+ntest "create configuration", {}, sub {
+    my $xpath = $::N->runProcedure("$::gPlugin_name", 
+        { procedureName => "CreateConfiguration",
+          pollInterval  => '0.2',
+          timeout       => 600,
+          actualParameter => [ 
+            { actualParameterName => 'config', value => CONFIG }, 
+            { actualParameterName => 'token', value => "9ae6ed9c13046bbe9f1d9c258483e5869379cab4" },
+          ],
+        });
+
+    assertOK($xpath, "run create configuration procedure");
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+    assertDef($xpath, "runProcedure finished without a timeout");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+};
+
+#correctHerokuSyntax 
+
+#Test a heroku command with a correct syntax
+ntest "AddOnsM", {}, sub {
+    doSetup();
+    # run test job
+    my $xpath = $::N->runProcedure("heroku-test", 
+        { procedureName => "AddOnsM",
+          pollInterval  => '1',
+          timeout => 1200,
+          actualParameter => []
+        });
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+             
+    assertOK($xpath, "runProcedure with errors");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+         
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+         
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId); 
+    
+    #------------------------------------------------------------------------------------------    
+    # Declare the expected value
+    my $expected = qq{Client-SSL-Cert-Subject: /C=US/ST=California/L=San Francisco/O=Heroku, Inc./CN=*.heroku.com};
+        
+    # Get the root of log files. use UNC so it works from
+    # command line as well as within a CMD step
+    my $ws = $xpath->findvalue("//workspace[1]/winUNC");
+    
+    if (!isWindows()) {
+        $ws = $xpath->findvalue("//workspace[1]/unix");
+    }
+    
+    return if assertNe($ws, '', "Found a logfile name");
+    
+    my $logFileName = $xpath->findvalue(
+        "//jobStep[stepName='step1']/calledProcedure/jobStep[stepName='AddOnsManagement']/logFileName");
+    return if assertNe($logFileName, '', "Found a logfile name");
+    $logFileName = "$ws/$logFileName";
+
+    # Read the log file and verify its contents.
+    my $data = readFile($logFileName);
+    return if assertNe($data, '', "Read data");
+
+    my @data_arr = split("\n",$data);
+    #assertEq($expected, $data_arr[-3], "Correct Heroku request");
+    
+};
+
+#-------------------------------------------------------------------------------------------------
+ntest "ApplicationM", {}, sub {
+    doSetup();
+    # run test job
+    my $xpath = $::N->runProcedure("heroku-test", 
+        { procedureName => "ApplicationM",
+          pollInterval  => '1',
+          timeout => 1200,
+          actualParameter => []
+        });
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+             
+    assertOK($xpath, "runProcedure with errors");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+         
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+         
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId); 
+    
+    #------------------------------------------------------------------------------------------    
+    # Declare the expected value
+    my $expected = qq{Client-SSL-Cert-Subject: /C=US/ST=California/L=San Francisco/O=Heroku, Inc./CN=*.heroku.com};
+        
+    # Get the root of log files. use UNC so it works from
+    # command line as well as within a CMD step
+    my $ws = $xpath->findvalue("//workspace[1]/winUNC");
+    
+    if (!isWindows()) {
+        $ws = $xpath->findvalue("//workspace[1]/unix");
+    }
+    
+    return if assertNe($ws, '', "Found a logfile name");
+    
+    my $logFileName = $xpath->findvalue(
+        "//jobStep[stepName='step1']/calledProcedure/jobStep[stepName='ApplicationManagement']/logFileName");
+    return if assertNe($logFileName, '', "Found a logfile name");
+    $logFileName = "$ws/$logFileName";
+
+    # Read the log file and verify its contents.
+    my $data = readFile($logFileName);
+    return if assertNe($data, '', "Read data");
+
+    my @data_arr = split("\n",$data);
+    #assertEq($expected, $data_arr[-3], "Correct Heroku request");
+    
+};
+
+
+#-------------------------------------------------------------------------------------------------
+ntest "CollaboratorM", {}, sub {
+    doSetup();
+    # run test job
+    my $xpath = $::N->runProcedure("heroku-test", 
+        { procedureName => "CollaboratorM",
+          pollInterval  => '1',
+          timeout => 1200,
+          actualParameter => []
+        });
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+             
+    assertOK($xpath, "runProcedure with errors");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+         
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+         
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId); 
+    
+    #------------------------------------------------------------------------------------------    
+    # Declare the expected value
+    my $expected = qq{Client-SSL-Cert-Subject: /C=US/ST=California/L=San Francisco/O=Heroku, Inc./CN=*.heroku.com};
+        
+    # Get the root of log files. use UNC so it works from
+    # command line as well as within a CMD step
+    my $ws = $xpath->findvalue("//workspace[1]/winUNC");
+    
+    if (!isWindows()) {
+        $ws = $xpath->findvalue("//workspace[1]/unix");
+    }
+    
+    return if assertNe($ws, '', "Found a logfile name");
+    
+    my $logFileName = $xpath->findvalue(
+        "//jobStep[stepName='step1']/calledProcedure/jobStep[stepName='CollaboratorManagement']/logFileName");
+    return if assertNe($logFileName, '', "Found a logfile name");
+    $logFileName = "$ws/$logFileName";
+
+    # Read the log file and verify its contents.
+    my $data = readFile($logFileName);
+    return if assertNe($data, '', "Read data");
+
+    my @data_arr = split("\n",$data);
+    #assertEq($expected, $data_arr[-3], "Correct Heroku request");
+    
+};
+
+#-------------------------------------------------------------------------------------------------
+ntest "ConfigurationM", {}, sub {
+    doSetup();
+    # run test job
+    my $xpath = $::N->runProcedure("heroku-test", 
+        { procedureName => "ConfigurationM",
+          pollInterval  => '1',
+          timeout => 1200,
+          actualParameter => []
+        });
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+             
+    assertOK($xpath, "runProcedure with errors");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+         
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+         
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId); 
+    
+    #------------------------------------------------------------------------------------------    
+    # Declare the expected value
+    my $expected = qq{Client-SSL-Cert-Subject: /C=US/ST=California/L=San Francisco/O=Heroku, Inc./CN=*.heroku.com};
+        
+    # Get the root of log files. use UNC so it works from
+    # command line as well as within a CMD step
+    my $ws = $xpath->findvalue("//workspace[1]/winUNC");
+    
+    if (!isWindows()) {
+        $ws = $xpath->findvalue("//workspace[1]/unix");
+    }
+    
+    return if assertNe($ws, '', "Found a logfile name");
+    
+    my $logFileName = $xpath->findvalue(
+        "//jobStep[stepName='step1']/calledProcedure/jobStep[stepName='ConfigurationManagement']/logFileName");
+    return if assertNe($logFileName, '', "Found a logfile name");
+    $logFileName = "$ws/$logFileName";
+
+    # Read the log file and verify its contents.
+    my $data = readFile($logFileName);
+    return if assertNe($data, '', "Read data");
+
+    my @data_arr = split("\n",$data);
+    #assertEq($expected, $data_arr[-3], "Correct Heroku request");
+    
+};
+
+
+#-------------------------------------------------------------------------------------------------
+ntest "DeployApp", {}, sub {
+    doSetup();
+    # run test job
+    my $xpath = $::N->runProcedure("heroku-test", 
+        { procedureName => "DeployApp",
+          pollInterval  => '1',
+          timeout => 1200,
+          actualParameter => []
+        });
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+             
+    assertOK($xpath, "runProcedure with errors");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+         
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+         
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId); 
+    
+    #------------------------------------------------------------------------------------------    
+    # Declare the expected value
+    my $expected = qq{Error: Invalid Application Path};
+        
+    # Get the root of log files. use UNC so it works from
+    # command line as well as within a CMD step
+    my $ws = $xpath->findvalue("//workspace[1]/winUNC");
+    
+    if (!isWindows()) {
+        $ws = $xpath->findvalue("//workspace[1]/unix");
+    }
+    
+    return if assertNe($ws, '', "Found a logfile name");
+    
+    my $logFileName = $xpath->findvalue(
+        "//jobStep[stepName='step1']/calledProcedure/jobStep[stepName='DeployApplication']/logFileName");
+    return if assertNe($logFileName, '', "Found a logfile name");
+    $logFileName = "$ws/$logFileName";
+
+    # Read the log file and verify its contents.
+    my $data = readFile($logFileName);
+    return if assertNe($data, '', "Read data");
+
+    my @data_arr = split("\n",$data);
+    assertEq($expected, $data_arr[-1], "Correct Heroku request");
+    
+};
+
+
+#-------------------------------------------------------------------------------------------------
+ntest "ProcessM", {}, sub {
+    doSetup();
+    # run test job
+    my $xpath = $::N->runProcedure("heroku-test", 
+        { procedureName => "ProcessM",
+          pollInterval  => '1',
+          timeout => 1200,
+          actualParameter => []
+        });
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+             
+    assertOK($xpath, "runProcedure with errors");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+         
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+         
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId); 
+    
+    #------------------------------------------------------------------------------------------    
+    # Declare the expected value
+    my $expected = qq{Client-SSL-Cert-Subject: /C=US/ST=California/L=San Francisco/O=Heroku, Inc./CN=*.heroku.com};
+        
+    # Get the root of log files. use UNC so it works from
+    # command line as well as within a CMD step
+    my $ws = $xpath->findvalue("//workspace[1]/winUNC");
+    
+    if (!isWindows()) {
+        $ws = $xpath->findvalue("//workspace[1]/unix");
+    }
+    
+    return if assertNe($ws, '', "Found a logfile name");
+    
+    my $logFileName = $xpath->findvalue(
+        "//jobStep[stepName='step1']/calledProcedure/jobStep[stepName='ProcessManagement']/logFileName");
+    return if assertNe($logFileName, '', "Found a logfile name");
+    $logFileName = "$ws/$logFileName";
+
+    # Read the log file and verify its contents.
+    my $data = readFile($logFileName);
+    return if assertNe($data, '', "Read data");
+
+    my @data_arr = split("\n",$data);
+    #assertEq($expected, $data_arr[-3], "Correct Heroku request");
+    
+};
+
+
+#-------------------------------------------------------------------------------------------------
+ntest "ReleasesM", {}, sub {
+    doSetup();
+    # run test job
+    my $xpath = $::N->runProcedure("heroku-test", 
+        { procedureName => "ReleasesM",
+          pollInterval  => '1',
+          timeout => 1200,
+          actualParameter => []
+        });
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+             
+    assertOK($xpath, "runProcedure with errors");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+         
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+         
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId); 
+    
+    #------------------------------------------------------------------------------------------    
+    # Declare the expected value
+    my $expected = qq{Client-SSL-Cert-Subject: /C=US/ST=California/L=San Francisco/O=Heroku, Inc./CN=*.heroku.com};
+        
+    # Get the root of log files. use UNC so it works from
+    # command line as well as within a CMD step
+    my $ws = $xpath->findvalue("//workspace[1]/winUNC");
+    
+    if (!isWindows()) {
+        $ws = $xpath->findvalue("//workspace[1]/unix");
+    }
+    
+    return if assertNe($ws, '', "Found a logfile name");
+    
+    my $logFileName = $xpath->findvalue(
+        "//jobStep[stepName='step1']/calledProcedure/jobStep[stepName='ReleasesManagement']/logFileName");
+    return if assertNe($logFileName, '', "Found a logfile name");
+    $logFileName = "$ws/$logFileName";
+
+    # Read the log file and verify its contents.
+    my $data = readFile($logFileName);
+    return if assertNe($data, '', "Read data");
+
+    my @data_arr = split("\n",$data);
+    #assertEq($expected, $data_arr[-3], "Correct Heroku request");
+    
+};
+
+
+#-------------------------------------------------------------------------------------------------
+ntest "SSHKeysM", {}, sub {
+    doSetup();
+    # run test job
+    my $xpath = $::N->runProcedure("heroku-test", 
+        { procedureName => "SSHKeysM",
+          pollInterval  => '1',
+          timeout => 1200,
+          actualParameter => []
+        });
+    # make sure it finished
+    my $jobId = 0;
+    my $status = "";
+             
+    assertOK($xpath, "runProcedure with errors");
+    if ($xpath) {
+        $jobId  = $xpath->findvalue("//jobId");
+        $status = $xpath->findvalue("//status");
+        $outcome = $xpath->findvalue("//outcome");
+         
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed',$status,"job $jobId complete");
+         
+        #abort if job did not finish
+        if ($status ne "completed") {
+            assertOK($::N->abortJob($jobId, {force => 1}));
+        }
+    }
+    # get the job details
+    $xpath = $::N->getJobDetails($jobId); 
+    
+    #------------------------------------------------------------------------------------------    
+    # Declare the expected value
+    my $expected = qq{Client-SSL-Cert-Subject: /C=US/ST=California/L=San Francisco/O=Heroku, Inc./CN=*.heroku.com};
+        
+    # Get the root of log files. use UNC so it works from
+    # command line as well as within a CMD step
+    my $ws = $xpath->findvalue("//workspace[1]/winUNC");
+    
+    if (!isWindows()) {
+        $ws = $xpath->findvalue("//workspace[1]/unix");
+    }
+    
+    return if assertNe($ws, '', "Found a logfile name");
+    
+    my $logFileName = $xpath->findvalue(
+        "//jobStep[stepName='step1']/calledProcedure/jobStep[stepName='SSHKeysManagement']/logFileName");
+    return if assertNe($logFileName, '', "Found a logfile name");
+    $logFileName = "$ws/$logFileName";
+
+    # Read the log file and verify its contents.
+    my $data = readFile($logFileName);
+    return if assertNe($data, '', "Read data");
+
+    my @data_arr = split("\n",$data);
+    #assertEq($expected, $data_arr[-3], "Correct Heroku request");
+    
+};

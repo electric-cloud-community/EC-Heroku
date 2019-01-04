@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <key>@PLUGIN_KEY@</key>
+    <version>@PLUGIN_VERSION@</version>
+    <label>@PLUGIN_KEY@</label>
+    <description>Integrates Heroku's cloud platform as a service into ElectricFlow</description>
+    <author>Electric Cloud</author>
+    <authorUrl>http://www.electric-cloud.com/support</authorUrl>
+    <category>Deployment</category>
+    <configure>configurations.xml</configure>
+    <commander-version min="3.6"/>
+    <help>EC-Heroku_help.xml</help>    
+    <components>
+        <component name="ConfigurationManagement">
+            <javascript>war/ecplugins.EC_Heroku.ConfigurationManagement/ecplugins.EC_Heroku.ConfigurationManagement.nocache.js</javascript>
+        </component>
+        <component name="AddOnsManagementParameterPanel">
+            <javascript>
+                war/ecplugins.EC_Heroku.AddOnsManagementParameterPanel/ecplugins.EC_Heroku.AddOnsManagementParameterPanel.nocache.js
+            </javascript>
+        </component>
+        <component name="ApplicationManagementParameterPanel">
+            <javascript>
+                war/ecplugins.EC_Heroku.ApplicationManagementParameterPanel/ecplugins.EC_Heroku.ApplicationManagementParameterPanel.nocache.js
+            </javascript>
+        </component>
+        <component name="CollaboratorManagementParameterPanel">
+            <javascript>
+                war/ecplugins.EC_Heroku.CollaboratorManagementParameterPanel/ecplugins.EC_Heroku.CollaboratorManagementParameterPanel.nocache.js
+            </javascript>
+        </component>
+        <component name="ConfigurationManagementParameterPanel">
+            <javascript>
+                war/ecplugins.EC_Heroku.ConfigurationManagementParameterPanel/ecplugins.EC_Heroku.ConfigurationManagementParameterPanel.nocache.js
+            </javascript>
+        </component>
+        <component name="DeployApplicationParameterPanel">
+            <javascript>
+                war/ecplugins.EC_Heroku.DeployApplicationParameterPanel/ecplugins.EC_Heroku.DeployApplicationParameterPanel.nocache.js
+            </javascript>
+        </component>
+        <component name="ProcessManagementParameterPanel">
+            <javascript>
+                war/ecplugins.EC_Heroku.ProcessManagementParameterPanel/ecplugins.EC_Heroku.ProcessManagementParameterPanel.nocache.js
+            </javascript>
+        </component>
+        <component name="ReleasesManagementParameterPanel">
+            <javascript>
+                war/ecplugins.EC_Heroku.ReleasesManagementParameterPanel/ecplugins.EC_Heroku.ReleasesManagementParameterPanel.nocache.js
+            </javascript>
+        </component>
+        <component name="SSHKeysManagementParameterPanel">
+            <javascript>
+                war/ecplugins.EC_Heroku.SSHKeysManagementParameterPanel/ecplugins.EC_Heroku.SSHKeysManagementParameterPanel.nocache.js
+            </javascript>
+        </component>
+    </components>
+    <customTypes>
+        <customType name="AddOnsManagement">
+            <parameterPanel>
+                <javascript>
+                    war/ecplugins.EC_Heroku.AddOnsManagementParameterPanel/ecplugins.EC_Heroku.AddOnsManagementParameterPanel.nocache.js
+                </javascript>
+                <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/EC-Heroku_help?s=Administration&amp;ss=Plugins#AddOnsManagement
+                </help>
+            </parameterPanel>
+        </customType>
+        <customType name="ApplicationManagement">
+            <parameterPanel>
+                <javascript>
+                    war/ecplugins.EC_Heroku.ApplicationManagementParameterPanel/ecplugins.EC_Heroku.ApplicationManagementParameterPanel.nocache.js
+                </javascript>
+                <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/EC-Heroku_help?s=Administration&amp;ss=Plugins#ApplicationManagement
+                </help>
+            </parameterPanel>
+        </customType>
+        <customType name="CollaboratorManagement">
+            <parameterPanel>
+                <javascript>
+                    war/ecplugins.EC_Heroku.CollaboratorManagementParameterPanel/ecplugins.EC_Heroku.CollaboratorManagementParameterPanel.nocache.js
+                </javascript>
+                <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/EC-Heroku_help?s=Administration&amp;ss=Plugins#CollaboratorManagement
+                </help>
+            </parameterPanel>
+        </customType>
+        <customType name="ConfigurationManagement">
+            <parameterPanel>
+                <javascript>
+                    war/ecplugins.EC_Heroku.ConfigurationManagementParameterPanel/ecplugins.EC_Heroku.ConfigurationManagementParameterPanel.nocache.js
+                </javascript>
+                <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/EC-Heroku_help?s=Administration&amp;ss=Plugins#ConfigurationManagement
+                </help>
+            </parameterPanel>
+        </customType>
+        <customType name="DeployApplication">
+            <parameterPanel>
+                <javascript>
+                    war/ecplugins.EC_Heroku.DeployApplicationParameterPanel/ecplugins.EC_Heroku.DeployApplicationParameterPanel.nocache.js
+                </javascript>
+                <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/EC-Heroku_help?s=Administration&amp;ss=Plugins#DeployApplication
+                </help>
+            </parameterPanel>
+        </customType>
+        <customType name="ProcessManagement">
+            <parameterPanel>
+                <javascript>
+                    war/ecplugins.EC_Heroku.ProcessManagementParameterPanel/ecplugins.EC_Heroku.ProcessManagementParameterPanel.nocache.js
+                </javascript>
+                <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/EC-Heroku_help?s=Administration&amp;ss=Plugins#ProcessManagement
+                </help>
+            </parameterPanel>
+        </customType>
+        <customType name="ReleasesManagement">
+            <parameterPanel>
+                <javascript>
+                    war/ecplugins.EC_Heroku.ReleasesManagementParameterPanel/ecplugins.EC_Heroku.ReleasesManagementParameterPanel.nocache.js
+                </javascript>
+                <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/EC-Heroku_help?s=Administration&amp;ss=Plugins#ReleasesManagement
+                </help>
+            </parameterPanel>
+        </customType>
+        <customType name="SSHKeysManagement">
+        <parameterPanel>
+            <javascript>
+                war/ecplugins.EC_Heroku.SSHKeysManagementParameterPanel/ecplugins.EC_Heroku.SSHKeysManagementParameterPanel.nocache.js
+            </javascript>
+            <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/EC-Heroku_help?s=Administration&amp;ss=Plugins#SSHKeysManagement
+            </help>
+        </parameterPanel>
+        </customType>    
+    </customTypes>
+</plugin>

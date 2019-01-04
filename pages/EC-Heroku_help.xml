@@ -1,0 +1,862 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="generator" content="HTML Tidy for Windows (vers 25 March 2009), see www.w3.org" />
+    <meta content="text/html; charset=us-ascii" http-equiv="content-type" />
+
+    <title>ElectricFlow Plugin for Heroku</title>
+    <link rel="stylesheet" href="../../plugins/@PLUGIN_KEY@/pluginhelp.css" type="text/css" media="screen" />
+</head>
+
+<body>
+    <div class="help">
+        <h1>EC-Heroku</h1>
+		
+        <p>Plugin Version @PLUGIN_VERSION@</p>
+        <hr style="margin-left: -10px; margin-top: 10px; height: 2px; width: 100%; #5981BD;" noshade="noshade" />
+			
+			<p>Revised on July 1, 2015</p>
+        <!-- The tool description should answer these kinds of questions:5981BD
+
+                What is the tool itself is used for in the development
+
+                process? Who would use this tool? What is the general use-case or
+
+                problem that this tool solves? Look at the tool's documentation or
+
+                website(s) to get their own descriptions. Look at Wikipedia or other
+
+                outside websites. If there is a Hudson plugin, read their
+
+                documentation for ideas, examples, etc. It's OK to copy word-for-word
+
+                only if appropriate, such as FOSS - but not commercial software.
+
+                -->
+
+        <p>Heroku is a cloud platform as a service or PaaS,
+        supporting several programming languages. It is known for
+        being one of the first cloud platforms, and has been in
+        development since June 2007 when it supported the Ruby
+        programming language, but since has added support for Java,
+        Node.js, Scala, Clojure and Python and PHP. Heroku claims
+        to offer the most NoSQL add-on solutions in the market
+        today and that it introduced the 'polyglot platform', also
+        it is recognized by many as one of the best cloud computer
+        services available. It can be easily used through console
+        and provide a very robust Web API.</p>
+
+        <h2>Heroku Links</h2>
+
+        <p>More information can be found at:</p>
+
+        <ul>
+            <li><a href="http://www.heroku.com/">Heroku Main
+            Page</a></li>
+
+            <li><a href="https://devcenter.heroku.com/">Heroku Dev
+            Center</a></li>
+        </ul>
+
+        <h2>ElectricFlow Integration to Heroku</h2>
+        <!-- The integration description should answer the questions:
+
+                How deep does our integration go? Why should I care? What general
+
+                functionality does the plugin include? What functionality does
+
+                the plugin omit?
+
+                -->
+        <!--p>@PLUGIN_KEY@ plugin calls the Heroku web services via HTTP Requests
+                    and passes the user-provided parameters.</p-->
+
+        <p>The @PLUGIN_KEY@ plugin is open, it allows the input of
+        many Heroku functions defined in the provided fields of the
+        parameters. Is important to provide all the parameters
+        required for the correct functioning of the Heroku
+        plugin.</p>
+
+        <p>ElectricFlow itself provides some advantages like
+        parameters checking, easy functionality selection using
+        only check boxes or radio buttons, hitorical log reports,
+        procedure duration statistics, simple credentials
+        attachment, real time analysis of the log been generated,
+        among others.</p>
+
+        <h2>Integrated Version</h2>
+
+        <p>This plugin was developed and tested against Heroku
+        version 2.31.4 (ruby v.1.9.2)</p>
+
+        <h1>Plugin Procedures</h1>
+		<p>IMPORTANT: In the ElectricFlow UI, from the Home page, open the Main Menu, and click <b>Admin</b> &gt; <b>Plugins</b> to open the Plugin Manager.</p>
+        <p>IMPORTANT: For all parameter descriptions below,
+        required parameters are shown in
+        <span class="required">bold italics</span>.</p>
+        <hr style="margin-left: -10px; margin-top: 10px; height: 1px; width: 100%; #5981BD;" noshade="noshade" />
+
+        <div id="AddOnsManagement">
+            <a name="AddOnsManagement" id="AddOnsManagement"></a> 
+
+            <h3>Add-Ons Management</h3>
+
+            <p>This procedure allows the user to manage the add-ons
+            for a particular application, there are several actions
+            to perform with add-ons, the options are: List all
+            available add-ons for an app, list installed add-ons on
+            an app, and there ir the possibility to install,
+            upgrade and uninstall a specific add-on on an
+            application.</p>
+
+            <p>Some of the parameters are not required for all
+            cases, however, the "required" specified fields cannot
+            be omited.</p>
+            <!-- If the plugin has separate configurations then include this section,
+
+                        otherwise omit this whole section. We don't need to have a configuration
+
+                        section that just says "There is no configuration for this plugin."
+
+                        -->
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="required">Configuration</td>
+
+                        <td>The name of the configuration that
+                        contains the information to connect with
+                        Heroku.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required">Action</td>
+
+                        <td>Select the Action to perform, the
+                        options are: List all available add-ons,
+                        List installed, Install, Upgrade and
+                        Uninstall an Add-on. (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Application Name</td>
+
+                        <td>The name of the app to perform the
+                        action on.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Add-On Name</td>
+
+                        <td>Provide the name of the add-on.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- For all parameters, the parameter name should be *exactly* the same as it appears in the
+
+                            Parameter Panel, and the first sentence(s) of the description should be
+
+                            the same as the tooltip (if there is one). After that, the parameter
+
+                            description can go into greater detail about the parameter including
+
+                            valid value ranges and examples.
+
+                            -->
+
+            <p>Add-Ons parameters
+            form:</p><img src="../../plugins/@PLUGIN_KEY@/images/AddOnsManagement.png" alt="screenshot" /> 
+
+            <p>Add-Ons parameters form with Install action
+            selected:</p><img src="../../plugins/@PLUGIN_KEY@/images/AddOnsManagement2.png" alt="screenshot" />
+        </div>
+
+        <div id="ApplicationManagement">
+            <a name="ApplicationManagement" id="ApplicationManagement"></a> 
+
+            <h3>Application Management</h3>
+
+            <p>This procedure allows the user to manage a
+            particular application, there are several actions to
+            perform with applications, the options are: Create a
+            new application, Transfer an app, Rename and Destroy an
+            existing application.</p>
+
+            <p>Some of the parameters are not required for all
+            cases, however, the "required" specified fields cannot
+            be omited.</p>
+            <!-- If the plugin has separate configurations then include this section,
+
+                        otherwise omit this whole section. We don't need to have a configuration
+
+                        section that just says "There is no configuration for this plugin."
+
+                        -->
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="required">Configuration</td>
+
+                        <td>The name of the configuration that
+                        contains the information to connect with
+                        Heroku.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required">Action</td>
+
+                        <td>Select the Action to perform, the
+                        options are: Create, Transfer, Rename and
+                        Destroy. (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Application Name</td>
+
+                        <td>The name of the app to perform the
+                        action on.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Stack</td>
+
+                        <td>Allows to create an app on a stack,
+                        e.g. Bamboo.</td>
+                    </tr>
+
+                    <tr>
+                        <td>New Owner</td>
+
+                        <td>The new owner of the application.</td>
+                    </tr>
+
+                    <tr>
+                        <td>New Name</td>
+
+                        <td>The new name of the application.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- For all parameters, the parameter name should be *exactly* the same as it appears in the
+
+                            Parameter Panel, and the first sentence(s) of the description should be
+
+                            the same as the tooltip (if there is one). After that, the parameter
+
+                            description can go into greater detail about the parameter including
+
+                            valid value ranges and examples.
+
+                            -->
+
+            <p>Application Management parameters
+            form:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement.png" alt="screenshot" />
+        </div>
+
+        <div id="CollaboratorManagement">
+            <a name="CollaboratorManagement" id="CollaboratorManagement"></a> 
+
+            <h3>Collaborator Management</h3>
+
+            <p>This procedure allows the user to manage
+            collaborators for a particular application, there are
+            some actions to perform with collaborators, the options
+            are: View all collaborators, Add or Remove existing
+            collaborator.</p>
+
+            <p>Some of the parameters are not required for all
+            cases, however, the "required" specified fields cannot
+            be omited.</p>
+            <!-- If the plugin has separate configurations then include this section,
+
+                        otherwise omit this whole section. We don't need to have a configuration
+
+                        section that just says "There is no configuration for this plugin."
+
+                        -->
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="required">Configuration</td>
+
+                        <td>The name of the configuration that
+                        contains the information to connect with
+                        Heroku.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required">Action</td>
+
+                        <td>Select the Action to perform, the
+                        options are: View all, Add and Remove.
+                        (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Application Name</td>
+
+                        <td>The name of the app to perform the
+                        action on.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Email Account</td>
+
+                        <td>The account to be added or removed from
+                        the app.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- For all parameters, the parameter name should be *exactly* the same as it appears in the
+
+                            Parameter Panel, and the first sentence(s) of the description should be
+
+                            the same as the tooltip (if there is one). After that, the parameter
+
+                            description can go into greater detail about the parameter including
+
+                            valid value ranges and examples.
+
+                            -->
+
+            <p>Collaborator Management parameters
+            form:</p><img src="../../plugins/@PLUGIN_KEY@/images/CollaboratorManagement.png" alt="screenshot" />
+        </div>
+
+        <div id="ConfigurationManagement">
+            <a name="ConfigurationManagement" id="ConfigurationManagement"></a> 
+
+            <h3>Configuration Management</h3>
+
+            <p>This procedure allows the user to manage the
+            configruation variables for a particular application,
+            there are several actions to perform with config
+            variables, the options are: View all, Add new
+            configuration var and Remove an existing variable.</p>
+
+            <p>Some of the parameters are not required for all
+            cases, however, the "required" specified fields cannot
+            be omited.</p>
+            <!-- If the plugin has separate configurations then include this section,
+
+                        otherwise omit this whole section. We don't need to have a configuration
+
+                        section that just says "There is no configuration for this plugin."
+
+                        -->
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="required">Configuration</td>
+
+                        <td>The name of the configuration that
+                        contains the information to connect with
+                        Heroku.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required">Action</td>
+
+                        <td>Select the Action to perform, the
+                        options are: View all, Add and Remove.
+                        (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Application Name</td>
+
+                        <td>The name of the app to perform the
+                        action on.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Body</td>
+
+                        <td>The new config vars, as a JSON
+                        hash.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Key</td>
+
+                        <td>The name of the config var to
+                        remove.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- For all parameters, the parameter name should be *exactly* the same as it appears in the
+
+                            Parameter Panel, and the first sentence(s) of the description should be
+
+                            the same as the tooltip (if there is one). After that, the parameter
+
+                            description can go into greater detail about the parameter including
+
+                            valid value ranges and examples.
+
+                            -->
+
+            <p>Configuration Management parameters
+            form:</p><img src="../../plugins/@PLUGIN_KEY@/images/ConfigurationManagement.png" alt="screenshot" />
+        </div>
+
+        <div id="DeployApplication">
+            <a name="DeployApplication" id="DeployApplication"></a> 
+
+            <h3>Deploy Application</h3>
+
+            <p>This procedure allows the user to push to an
+            existing application using Git. Before you can push an
+            app to Heroku, you'll need to have initialized a
+            local Git repo and have commited your files to it. Also
+            you'll need to have created a remote to Heroku. Finally
+            you need to have the Heroku keys correctly configured
+            in the heroku command line. It is assumed that this
+            requirements are fulfilled before using this
+            procedure.</p>
+
+            <p>Some of the parameters are not required for all
+            cases, however, the "required" specified fields cannot
+            be omited.</p>
+            <!-- If the plugin has separate configurations then include this section,
+
+                        otherwise omit this whole section. We don't need to have a configuration
+
+                        section that just says "There is no configuration for this plugin."
+
+                        -->
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="required">Application Path</td>
+
+                        <td>The path to the Heroku application.
+                        (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Branch</td>
+
+                        <td>Provide the branch to deploy.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- For all parameters, the parameter name should be *exactly* the same as it appears in the
+
+                            Parameter Panel, and the first sentence(s) of the description should be
+
+                            the same as the tooltip (if there is one). After that, the parameter
+
+                            description can go into greater detail about the parameter including
+
+                            valid value ranges and examples.
+
+                            -->
+
+            <p>Deploy Application parameters
+            form:</p><img src="../../plugins/@PLUGIN_KEY@/images/DeployApplication.png" alt="screenshot" />
+        </div>
+
+        <div id="ProcessManagement">
+            <a name="ProcessManagement" id="ProcessManagement"></a> 
+
+            <h3>Process Management</h3>
+
+            <p>This procedure allows the user to manage processes
+            for a particular application, there are several actions
+            to perform with processes, the options are: List all
+            processes, Restart or Stop a particular process and
+            finally Scale processes for an application.</p>
+
+            <p>Some of the parameters are not required for all
+            cases, however, the "required" specified fields cannot
+            be omited.</p>
+            <!-- If the plugin has separate configurations then include this section,
+
+                        otherwise omit this whole section. We don't need to have a configuration
+
+                        section that just says "There is no configuration for this plugin."
+
+                        -->
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="required">Configuration</td>
+
+                        <td>The name of the configuration that
+                        contains the information to connect with
+                        Heroku.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required">Action</td>
+
+                        <td>Select the Action to perform, the
+                        options are: List, Restart, Stop and Scale.
+                        (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Application Name</td>
+
+                        <td>The name of the app to perform the
+                        action on.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Process Name</td>
+
+                        <td>Specifies the name of the process.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Process Type</td>
+
+                        <td>Specifies the type of the process, e.g.
+                        worker.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Quantity</td>
+
+                        <td>Specifies the quantity of processes to
+                        set.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- For all parameters, the parameter name should be *exactly* the same as it appears in the
+
+                            Parameter Panel, and the first sentence(s) of the description should be
+
+                            the same as the tooltip (if there is one). After that, the parameter
+
+                            description can go into greater detail about the parameter including
+
+                            valid value ranges and examples.
+
+                            -->
+
+            <p>Process Management parameters form for the "scale"
+            action:</p><img src="../../plugins/@PLUGIN_KEY@/images/ProcessManagement.png" alt="screenshot" />
+        </div>
+
+        <div id="ReleasesManagement">
+            <a name="ReleasesManagement" id="ReleasesManagement"></a> 
+
+            <h3>Releases Management</h3>
+
+            <p>This procedure allows the user to manage releases of
+            a particular application, there are some actions to
+            perform with releases, the options are: List all
+            existing releases, Get info of a specific release and
+            Rollback to a release.</p>
+
+            <p>Some of the parameters are not required for all
+            cases, however, the "required" specified fields cannot
+            be omited.</p>
+            <!-- If the plugin has separate configurations then include this section,
+
+                        otherwise omit this whole section. We don't need to have a configuration
+
+                        section that just says "There is no configuration for this plugin."
+
+                        -->
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="required">Configuration</td>
+
+                        <td>The name of the configuration that
+                        contains the information to connect with
+                        Heroku.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required">Action</td>
+
+                        <td>Select the Action to perform, the
+                        options are: List, Get info and Rollback.
+                        (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Application Name</td>
+
+                        <td>The name of the app to perform the
+                        action on.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Release</td>
+
+                        <td>The release name.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- For all parameters, the parameter name should be *exactly* the same as it appears in the
+
+                            Parameter Panel, and the first sentence(s) of the description should be
+
+                            the same as the tooltip (if there is one). After that, the parameter
+
+                            description can go into greater detail about the parameter including
+
+                            valid value ranges and examples.
+
+                            -->
+
+            <p>Releases Management parameters
+            form:</p><img src="../../plugins/@PLUGIN_KEY@/images/ReleasesManagement.png" alt="screenshot" />
+        </div>
+
+        <div id="SSHKeysManagement">
+            <a name="SSHKeysManagement" id="SSHKeysManagement"></a> 
+
+            <h3>SSH Keys Management</h3>
+
+            <p>This procedure allows the user to manage SSH keys
+            for a particular application, there are several actions
+            to perform with SSH keys, the options are: View all,
+            Associate SSH key to this account, Remove SSH key and
+            Remove All SSH keys.</p>
+
+            <p>Some of the parameters are not required for all
+            cases, however, the "required" specified fields cannot
+            be omited.</p>
+            <!-- If the plugin has separate configurations then include this section,
+
+                        otherwise omit this whole section. We don't need to have a configuration
+
+                        section that just says "There is no configuration for this plugin."
+
+                        -->
+
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="required">Configuration</td>
+
+                        <td>The name of the configuration that
+                        contains the information to connect with
+                        Heroku.(Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="required">Action</td>
+
+                        <td>Select the Action to perform, the
+                        options are: Create, Transfer, Rename and
+                        Destroy. (Required)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Key</td>
+
+                        <td>The key to associate or remove.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- For all parameters, the parameter name should be *exactly* the same as it appears in the
+
+                            Parameter Panel, and the first sentence(s) of the description should be
+
+                            the same as the tooltip (if there is one). After that, the parameter
+
+                            description can go into greater detail about the parameter including
+
+                            valid value ranges and examples.
+
+                            -->
+
+            <p>SSH Keys Management parameters
+            form:</p><img src="../../plugins/@PLUGIN_KEY@/images/SSHKeysManagement.png" alt="screenshot" />
+        </div>
+
+        <h1>Use Cases and Examples</h1>
+        <!-- This section is for examples and use cases, including screenshots of the new Parameter Panel with example values filled in.
+
+                Unfortunately, I can't tell you what exactly to put here, but it's OK to put what seems like too much! Include both parameter
+
+                values and output where appropriate. Use a separate 'h2' header for each example. Under the h2 header try to stay with the style
+
+                outline used above where possible.
+
+                -->
+
+        <h2>Example: Create Configuration, Create Application, Add
+        Collaborator, Restart Processes and Destroy
+        Application.</h2>
+
+        <p>The first step is to create a configuration with your
+        Heroku <span class="required">API Key</span>, wich is
+        available at your
+        <a href="https://api.heroku.com/account">Account</a>
+        page.</p><img src="../../plugins/@PLUGIN_KEY@/images/Config.png" alt="screenshot" /> 
+
+        <p>With the configuration ready, it is possible to use any
+        of the procedures provided. For this example we will start
+        by creating a new Heroku App, in order to do this it is
+        necesary to access the Application Management procedure and
+        provide the requested
+        parameters:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement1.png" alt="screenshot" /> 
+
+        <p>Once the parameters are set, now you are able to execute
+        the step. The result is
+        succesful:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement2.png" alt="screenshot" /> 
+
+        <p>It is also possible to check the response from Heroku by
+        entering the
+        log:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement3.png" alt="screenshot" /> 
+
+        <p>As a final revision, the application should appear at
+        your Heroku
+        dashboard:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement4.png" alt="screenshot" /> 
+
+        <p>To continue with the example, it is possible to manage
+        Collaborators of an App by entering the Collaborator
+        Management procedure, in this case a new collaborator will
+        be added toe the "new-city"
+        application:</p><img src="../../plugins/@PLUGIN_KEY@/images/CollaboratorManagement1.png" alt="screenshot" /> 
+
+        <p>Once the parameters are set, now you are able to execute
+        the step. The result is
+        succesful:</p><img src="../../plugins/@PLUGIN_KEY@/images/CollaboratorManagement2.png" alt="screenshot" /> 
+
+        <p>For this case it is also possible to check the response
+        from Heroku by entering the
+        log:</p><img src="../../plugins/@PLUGIN_KEY@/images/CollaboratorManagement3.png" alt="screenshot" /> 
+
+        <p>By default the application "new-city" was created with
+        one process active, called "web.1". By accessing the
+        Process Management procedure it is possible to set any
+        number of processes, according to the needs and budget of
+        your application; it is also possible to restart or stop
+        the procedures when it is required. For this example the
+        only process called "web.1" will be
+        restarted:</p><img src="../../plugins/@PLUGIN_KEY@/images/ProcessManagement1.png" alt="screenshot" /> 
+
+        <p>Once the parameters are set, now you are able to execute
+        the step. The result is
+        succesful:</p><img src="../../plugins/@PLUGIN_KEY@/images/ProcessManagement2.png" alt="screenshot" /> 
+
+        <p>It is also possible to check the response body from
+        Heroku by entering the
+        log:</p><img src="../../plugins/@PLUGIN_KEY@/images/ProcessManagement3.png" alt="screenshot" /> 
+
+        <p>As final action for thi example the application will be
+        destroyed using the procedure Application Management. It is
+        necesary to provide the following
+        parameters:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement5.png" alt="screenshot" /> 
+
+        <p>Once the parameters are set, now you are able to execute
+        the step. The result is
+        succesful:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement2.png" alt="screenshot" /> 
+
+        <p>It is also possible to check the response body from
+        Heroku by entering the log, in this case the action was
+        destroy, and for that the response body is
+        empty:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement6.png" alt="screenshot" /> 
+
+        <h1>Release Notes</h1>
+	<h2>@PLUGIN_KEY@ 1.0.2</h2>
+    <ul>
+        <li>Fixed issue with configurations being cached for IE.</li>
+    </ul>
+		<h2>@PLUGIN_KEY@-1.0.1</h2>
+
+
+        <ul>
+
+            <li>Renamed ElectricCommander to ElectricFlow.</li>
+
+        </ul>
+        <h2>@PLUGIN_KEY@-1.0.0</h2>
+
+        <ul>
+            <li>Procedures: AddOns Management, Application
+            Management, Collaborator Management, Configuration
+            Management, Deploy Application, Process Management,
+            Releases Management and SSH Keys Management.</li>
+
+            <li>Implemented dynamic GWT parameter panels for all
+            procedures.</li>
+
+            <li>Created help page, including detailed example.</li>
+
+            <li>Postp implementation.</li>
+        </ul>
+    </div>
+</body>
+</html>

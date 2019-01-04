@@ -1,0 +1,21 @@
+<project name="EC-Heroku" default="package" basedir=".">
+	<description>
+        Build the EC-Heroku plugin
+    </description>
+    <property name="buildconfigdir" value="../Plugin-In-A-Box/scripts" />
+	<!-- plugin specific properties -->
+	<property name="pluginKey" value="EC-Heroku" />
+	<property name="pluginVersion" value="1.0" />	    <property name="gwtModules" value="ecplugins.EC_Heroku.ConfigurationManagement,ecplugins.EC_Heroku.AddOnsManagementParameterPanel,ecplugins.EC_Heroku.ApplicationManagementParameterPanel,ecplugins.EC_Heroku.CollaboratorManagementParameterPanel,ecplugins.EC_Heroku.ConfigurationManagementParameterPanel,ecplugins.EC_Heroku.DeployApplicationParameterPanel,ecplugins.EC_Heroku.ProcessManagementParameterPanel,ecplugins.EC_Heroku.ReleasesManagementParameterPanel,ecplugins.EC_Heroku.SSHKeysManagementParameterPanel"/>
+    
+    <import file="${buildconfigdir}/buildTargets.xml"/>
+    
+    <fileset id="Heroku.srcs" dir="${dir.src}">      
+      <include name="**/HerokuConfigList.java"/>
+      <include name="**/HerokuConfigListLoader.*"/>
+    </fileset>
+    
+    <fileset id="images" dir="${dir.htdocs}">      
+      <include name="**/HerokuConfigList.java"/>
+      <include name="**/HerokuConfigListLoader.*"/>
+    </fileset>
+</project>
