@@ -1,0 +1,63 @@
+<?xml version='1.0' standalone='yes'?>
+<fileset>
+  <file>
+    <path>ec_setup.pl</path>
+    <xpath>//property[propertyName=&quot;ec_setup&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>lib/Heroku.pl</path>
+    <xpath>//property[propertyName=&quot;Heroku&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>postp_matchers.pl</path>
+    <xpath>//property[propertyName=&quot;postp_matchers&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>add_ons_management.pl</path>
+    <xpath>//step[stepName=&quot;AddOnsManagement&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>application_management.pl</path>
+    <xpath>//step[stepName=&quot;ApplicationManagement&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>collaborator_management.pl</path>
+    <xpath>//step[stepName=&quot;CollaboratorManagement&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>configuration_management.pl</path>
+    <xpath>//step[stepName=&quot;ConfigurationManagement&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>deploy_application.pl</path>
+    <xpath>//step[stepName=&quot;DeployApplication&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>process_management.pl</path>
+    <xpath>//step[stepName=&quot;ProcessManagement&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>releases_management.pl</path>
+    <xpath>//step[stepName=&quot;ReleasesManagement&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>ssh_keys_management.pl</path>
+    <xpath>//step[stepName=&quot;SSHKeysManagement&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>forms/configuration/HerokuCreateConfigForm.xml</path>
+    <xpath>//property[propertyName=&quot;ui_forms&quot;]/propertySheet/property[propertyName=&quot;@PLUGIN_KEY@ - HerokuCreateConfigForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>forms/configuration/HerokuEditConfigForm.xml</path>
+    <xpath>//property[propertyName=&quot;ui_forms&quot;]/propertySheet/property[propertyName=&quot;@PLUGIN_KEY@ - HerokuEditConfigForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>conf/createcfg.pl</path>
+    <xpath>//procedure[procedureName=&quot;CreateConfiguration&quot;]/step[stepName=&quot;CreateConfiguration&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>conf/deletecfg.pl</path>
+    <xpath>//procedure[procedureName=&quot;DeleteConfiguration&quot;]/step[stepName=&quot;DeleteConfiguration&quot;]/command</xpath>
+  </file>
+</fileset>
