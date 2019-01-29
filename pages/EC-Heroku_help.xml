@@ -830,10 +830,14 @@
         empty:</p><img src="../../plugins/@PLUGIN_KEY@/images/ApplicationManagement6.png" alt="screenshot" /> 
 
         <h1>Release Notes</h1>
-	<h2>@PLUGIN_KEY@ 1.0.2</h2>
-    <ul>
-        <li>Fixed issue with configurations being cached for IE.</li>
-    </ul>
+        <h2>@PLUGIN_KEY@ 1.0.3</h2>
+        <ul>
+            <li>Added metadata that is required for 9.0 release.</li>
+        </ul>
+	    <h2>@PLUGIN_KEY@ 1.0.2</h2>
+        <ul>
+            <li>Fixed issue with configurations being cached for IE.</li>
+        </ul>
 		<h2>@PLUGIN_KEY@-1.0.1</h2>
 
 
